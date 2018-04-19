@@ -26,8 +26,8 @@ export function HomeDashboard() {
   return (
     <PageContainer>
       <Helmet>
-        <title>HomeDashboard</title>
-        <meta name="description" content="Description of HomeDashboard" />
+        <title>What's My Bonus</title>
+        <meta name="description" content="Calculate your Bonus" />
       </Helmet>
       <h1>
         <FormattedMessage {...messages.header} />
