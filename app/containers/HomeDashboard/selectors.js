@@ -17,6 +17,7 @@ const selectHomeDashboardDomain = (state) => state.get('homeDashboard', fromJS({
 
  const QUARTERLY_PERCENT_OF_BONUS = 0.0625;
  const BONUS_PERCENT_OF_SALARY = 0.05;
+ const BONUS_TAX_RATE = 0.25;
 
 export const makeSelectHomeDashboard = () => createSelector(
   selectHomeDashboardDomain,
@@ -65,7 +66,7 @@ export const makeSelectEbitdaBonus = () => createSelector(
 export const makeSelectTotalAfterTaxes = () => createSelector(
   makeSelectRevenueBonus(),
   makeSelectEbitdaBonus(),
-  (revenueBonus, ebitdaBonus) => (revenueBonus + ebitdaBonus) * 0.5
+  (revenueBonus, ebitdaBonus) => (revenueBonus + ebitdaBonus) * (1 - BONUS_TAX_RATE)
 );
 
 export default makeSelectHomeDashboard;

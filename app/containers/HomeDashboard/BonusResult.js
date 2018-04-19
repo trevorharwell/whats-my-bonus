@@ -24,7 +24,7 @@ export const BonusResult = ({ revenueBonus, ebitdaBonus, totalAfterTaxes }) => (
     </FormField>
     <hr />
     <FormField>
-      <label>Total Bonus After Taxes</label>
+      <label>Total Bonus After Taxes (25%)</label>
       <div>{numeral(totalAfterTaxes).format('$0,0.00')}</div>
     </FormField>
   </div>
