@@ -17,7 +17,7 @@ const selectHomeDashboardDomain = (state) => state.get('homeDashboard', fromJS({
 
  const QUARTERLY_PERCENT_OF_BONUS = 0.0625;
  const BONUS_PERCENT_OF_SALARY = 0.05;
- const BONUS_TAX_RATE = 0.25;
+ export const BONUS_TAX_RATE = 0.30;
 
 export const makeSelectHomeDashboard = () => createSelector(
   selectHomeDashboardDomain,

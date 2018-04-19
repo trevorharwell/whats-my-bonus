@@ -6,7 +6,12 @@ import numeral from 'numeral';
 
 import FormField from 'components/FormField';
 
-import { makeSelectRevenueBonus, makeSelectEbitdaBonus, makeSelectTotalAfterTaxes } from './selectors';
+import {
+  BONUS_TAX_RATE,
+  makeSelectRevenueBonus,
+  makeSelectEbitdaBonus,
+  makeSelectTotalAfterTaxes,
+} from './selectors';
 
 export const BonusResult = ({ revenueBonus, ebitdaBonus, totalAfterTaxes }) => (
   <div>
@@ -24,7 +29,7 @@ export const BonusResult = ({ revenueBonus, ebitdaBonus, totalAfterTaxes }) => (
     </FormField>
     <hr />
     <FormField>
-      <label>Total Bonus After Taxes (25%)</label>
+      <label>Total Bonus After Taxes ({BONUS_TAX_RATE * 100}%)</label>
       <div>{numeral(totalAfterTaxes).format('$0,0.00')}</div>
     </FormField>
   </div>
