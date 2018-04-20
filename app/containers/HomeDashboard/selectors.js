@@ -15,9 +15,9 @@ const selectHomeDashboardDomain = (state) => state.get('homeDashboard', fromJS({
  * Default selector used by HomeDashboard
  */
 
- const QUARTERLY_PERCENT_OF_BONUS = 0.0625;
- const BONUS_PERCENT_OF_SALARY = 0.05;
- export const BONUS_TAX_RATE = 0.30;
+const QUARTERLY_PERCENT_OF_BONUS = 0.0625;
+const BONUS_PERCENT_OF_SALARY = 0.05;
+export const BONUS_TAX_RATE = 0.40;
 
 export const makeSelectHomeDashboard = () => createSelector(
   selectHomeDashboardDomain,
@@ -44,10 +44,10 @@ export const makeSelectRevenueBonus = () => createSelector(
   makeSelectRevenueGoalPercentValue(),
   (salaryValue, revenueGoalPercentValue) => {
     const salaryNumber = Number(salaryValue);
-    const revenueGoalPercentNumber = Number(revenueGoalPercentValue)/100;
+    const revenueGoalPercentNumber = Number(revenueGoalPercentValue) / 100;
     const revenueBonusNumber = revenueGoalPercentNumber * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;
 
-    return revenueBonusNumber ? revenueBonusNumber : 0;
+    return revenueBonusNumber || 0;
   }
 );
 
@@ -56,10 +56,10 @@ export const makeSelectEbitdaBonus = () => createSelector(
   makeSelectEbitdaGoalPercentValue(),
   (salaryValue, ebitdaGoalPercentValue) => {
     const salaryNumber = Number(salaryValue);
-    const ebitdaGoalPercentNumber = Number(ebitdaGoalPercentValue)/100;
-    const ebitdaBonusNumber = ebitdaGoalPercentNumber * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;;
+    const ebitdaGoalPercentNumber = Number(ebitdaGoalPercentValue) / 100;
+    const ebitdaBonusNumber = ebitdaGoalPercentNumber * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;
 
-    return ebitdaBonusNumber ? ebitdaBonusNumber : 0;
+    return ebitdaBonusNumber || 0;
   }
 );
 

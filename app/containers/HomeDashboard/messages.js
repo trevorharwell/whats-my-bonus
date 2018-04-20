@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'app.containers.HomeDashboard.header',
-    defaultMessage: 'Whats my bonus??',
+    defaultMessage: '💰 #whatsmybonus 💰',
   },
 });

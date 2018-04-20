@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectReducer from 'utils/injectReducer';
+import RetroHeader from './RetroHeader';
 import PageContainer from './PageContainer';
 import SalaryField from './SalaryField';
 import RevenueGoalPercentField from './RevenueGoalPercentField';
@@ -26,12 +27,12 @@ export function HomeDashboard() {
   return (
     <PageContainer>
       <Helmet>
-        <title>What's My Bonus</title>
+        <title>#whatsmybonus</title>
         <meta name="description" content="Calculate your Bonus" />
       </Helmet>
-      <h1>
+      <RetroHeader>
         <FormattedMessage {...messages.header} />
-      </h1>
+      </RetroHeader>
       <SalaryField />
       <RevenueGoalPercentField />
       <EbitdaGoalPercentField />
