@@ -13,8 +13,8 @@ import {
 
 const initialState = fromJS({
   salaryValue: '',
-  revenueGoalPercentValue: '100',
-  ebitdaGoalPercentValue: '160',
+  revenueGoalPercentValue: '101',
+  ebitdaGoalPercentValue: '96',
 });
 
 function homeDashboardReducer(state = initialState, action) {
