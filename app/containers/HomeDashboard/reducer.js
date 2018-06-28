@@ -14,7 +14,7 @@ import {
 const initialState = fromJS({
   salaryValue: '',
   revenueGoalPercentValue: '101',
-  ebitdaGoalPercentValue: '96',
+  ebitdaGoalPercentValue: '100',
 });
 
 function homeDashboardReducer(state = initialState, action) {
