@@ -39,13 +39,34 @@ export const makeSelectEbitdaGoalPercentValue = () => createSelector(
   (substate) => substate.get('ebitdaGoalPercentValue')
 );
 
+export const getPayoutPercentForGoalPercent = (goalPercent) => {
+  if (goalPercent <= 0.8) {
+    return 0;
+  } else if (goalPercent <= 0.85) {
+    return 0.25;
+  } else if (goalPercent <= 0.9) {
+    return 0.5;
+  } else if (goalPercent <= 0.95) {
+    return 0.75;
+  } else if (goalPercent <= 1.05) {
+    return 1;
+  } else if (goalPercent <= 1.1) {
+    return 1.15;
+  } else if (goalPercent <= 1.15) {
+    return 1.3;
+  } else if (goalPercent <= 1.2) {
+    return 1.45;
+  }
+  return 1.6;
+};
+
 export const makeSelectRevenueBonus = () => createSelector(
   makeSelectSalaryValue(),
   makeSelectRevenueGoalPercentValue(),
   (salaryValue, revenueGoalPercentValue) => {
     const salaryNumber = Number(salaryValue);
     const revenueGoalPercentNumber = Number(revenueGoalPercentValue) / 100;
-    const revenueBonusNumber = revenueGoalPercentNumber * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;
+    const revenueBonusNumber = getPayoutPercentForGoalPercent(revenueGoalPercentNumber) * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;
 
     return revenueBonusNumber || 0;
   }
@@ -57,7 +78,7 @@ export const makeSelectEbitdaBonus = () => createSelector(
   (salaryValue, ebitdaGoalPercentValue) => {
     const salaryNumber = Number(salaryValue);
     const ebitdaGoalPercentNumber = Number(ebitdaGoalPercentValue) / 100;
-    const ebitdaBonusNumber = ebitdaGoalPercentNumber * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;
+    const ebitdaBonusNumber = getPayoutPercentForGoalPercent(ebitdaGoalPercentNumber) * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;
 
     return ebitdaBonusNumber || 0;
   }
