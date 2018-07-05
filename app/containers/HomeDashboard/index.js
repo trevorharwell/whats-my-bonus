@@ -15,6 +15,7 @@ import { compose } from 'redux';
 import injectReducer from 'utils/injectReducer';
 import RetroHeader from './RetroHeader';
 import PageContainer from './PageContainer';
+import BonusTypeTab from './BonusTypeTab';
 import SalaryField from './SalaryField';
 import RevenueGoalPercentField from './RevenueGoalPercentField';
 import EbitdaGoalPercentField from './EbitdaGoalPercentField';
@@ -33,6 +34,7 @@ export function HomeDashboard() {
       <RetroHeader>
         <FormattedMessage {...messages.header} />
       </RetroHeader>
+      <BonusTypeTab />
       <SalaryField />
       <RevenueGoalPercentField />
       <EbitdaGoalPercentField />

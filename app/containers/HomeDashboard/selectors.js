@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable';
 import { createSelector } from 'reselect';
+import { YEAR_BONUS } from './constants';
 
 /**
  * Direct selector to the homeDashboard state domain
@@ -16,7 +17,8 @@ const selectHomeDashboardDomain = (state) => state.get('homeDashboard', fromJS({
  */
 
 const QUARTERLY_PERCENT_OF_BONUS = 0.0625;
-const BONUS_PERCENT_OF_SALARY = 0.05;
+const QUARTER_BONUS_PERCENT_OF_SALARY = 0.05;
+const YEAR_BONUS_PERCENT_OF_SALARY = 0.25;
 export const BONUS_TAX_RATE = 0.45;
 
 export const makeSelectHomeDashboard = () => createSelector(
@@ -37,6 +39,11 @@ export const makeSelectRevenueGoalPercentValue = () => createSelector(
 export const makeSelectEbitdaGoalPercentValue = () => createSelector(
   selectHomeDashboardDomain,
   (substate) => substate.get('ebitdaGoalPercentValue')
+);
+
+export const makeSelectBonusMode = () => createSelector(
+  selectHomeDashboardDomain,
+  (substate) => substate.get('bonusMode')
 );
 
 export const getPayoutPercentForGoalPercent = (goalPercent) => {
@@ -63,10 +70,14 @@ export const getPayoutPercentForGoalPercent = (goalPercent) => {
 export const makeSelectRevenueBonus = () => createSelector(
   makeSelectSalaryValue(),
   makeSelectRevenueGoalPercentValue(),
-  (salaryValue, revenueGoalPercentValue) => {
+  makeSelectBonusMode(),
+  (salaryValue, revenueGoalPercentValue, bonusMode) => {
     const salaryNumber = Number(salaryValue);
     const revenueGoalPercentNumber = Number(revenueGoalPercentValue) / 100;
-    const revenueBonusNumber = getPayoutPercentForGoalPercent(revenueGoalPercentNumber) * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;
+    const revenueBonusNumber = getPayoutPercentForGoalPercent(revenueGoalPercentNumber)
+      * QUARTERLY_PERCENT_OF_BONUS
+      * (bonusMode === YEAR_BONUS ? YEAR_BONUS_PERCENT_OF_SALARY : QUARTER_BONUS_PERCENT_OF_SALARY)
+      * salaryNumber;
 
     return revenueBonusNumber || 0;
   }
@@ -75,10 +86,14 @@ export const makeSelectRevenueBonus = () => createSelector(
 export const makeSelectEbitdaBonus = () => createSelector(
   makeSelectSalaryValue(),
   makeSelectEbitdaGoalPercentValue(),
-  (salaryValue, ebitdaGoalPercentValue) => {
+  makeSelectBonusMode(),
+  (salaryValue, ebitdaGoalPercentValue, bonusMode) => {
     const salaryNumber = Number(salaryValue);
     const ebitdaGoalPercentNumber = Number(ebitdaGoalPercentValue) / 100;
-    const ebitdaBonusNumber = getPayoutPercentForGoalPercent(ebitdaGoalPercentNumber) * (QUARTERLY_PERCENT_OF_BONUS * BONUS_PERCENT_OF_SALARY) * salaryNumber;
+    const ebitdaBonusNumber = getPayoutPercentForGoalPercent(ebitdaGoalPercentNumber)
+      * QUARTERLY_PERCENT_OF_BONUS
+      * (bonusMode === YEAR_BONUS ? YEAR_BONUS_PERCENT_OF_SALARY : QUARTER_BONUS_PERCENT_OF_SALARY)
+      * salaryNumber;
 
     return ebitdaBonusNumber || 0;
   }
