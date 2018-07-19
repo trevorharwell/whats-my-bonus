@@ -17,8 +17,8 @@ import {
 
 const initialState = fromJS({
   salaryValue: '',
-  revenueGoalPercentValue: '101',
-  ebitdaGoalPercentValue: '100',
+  revenueGoalPercentValue: '100',
+  ebitdaGoalPercentValue: '130',
   bonusMode: QUARTER_BONUS,
 });
 
