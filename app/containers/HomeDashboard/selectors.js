@@ -16,9 +16,9 @@ const selectHomeDashboardDomain = (state) => state.get('homeDashboard', fromJS({
  * Default selector used by HomeDashboard
  */
 
+const TOTAL_BONUS_PERCENT_OF_SALARY = 0.05;
 const QUARTERLY_PERCENT_OF_BONUS = 0.0625;
-const QUARTER_BONUS_PERCENT_OF_SALARY = 0.05;
-const YEAR_BONUS_PERCENT_OF_SALARY = 0.25;
+const ANNUAL_PERCENT_OF_BONUS = 0.25;
 export const BONUS_TAX_RATE = 0.45;
 
 export const makeSelectHomeDashboard = () => createSelector(
@@ -75,8 +75,8 @@ export const makeSelectRevenueBonus = () => createSelector(
     const salaryNumber = Number(salaryValue);
     const revenueGoalPercentNumber = Number(revenueGoalPercentValue) / 100;
     const revenueBonusNumber = getPayoutPercentForGoalPercent(revenueGoalPercentNumber)
-      * QUARTERLY_PERCENT_OF_BONUS
-      * (bonusMode === YEAR_BONUS ? YEAR_BONUS_PERCENT_OF_SALARY : QUARTER_BONUS_PERCENT_OF_SALARY)
+      * TOTAL_BONUS_PERCENT_OF_SALARY
+      * (bonusMode === YEAR_BONUS ? ANNUAL_PERCENT_OF_BONUS : QUARTERLY_PERCENT_OF_BONUS)
       * salaryNumber;
 
     return revenueBonusNumber || 0;
@@ -91,8 +91,8 @@ export const makeSelectEbitdaBonus = () => createSelector(
     const salaryNumber = Number(salaryValue);
     const ebitdaGoalPercentNumber = Number(ebitdaGoalPercentValue) / 100;
     const ebitdaBonusNumber = getPayoutPercentForGoalPercent(ebitdaGoalPercentNumber)
-      * QUARTERLY_PERCENT_OF_BONUS
-      * (bonusMode === YEAR_BONUS ? YEAR_BONUS_PERCENT_OF_SALARY : QUARTER_BONUS_PERCENT_OF_SALARY)
+      * TOTAL_BONUS_PERCENT_OF_SALARY
+      * (bonusMode === YEAR_BONUS ? ANNUAL_PERCENT_OF_BONUS : QUARTERLY_PERCENT_OF_BONUS)
       * salaryNumber;
 
     return ebitdaBonusNumber || 0;
