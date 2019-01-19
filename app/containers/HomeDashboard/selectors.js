@@ -67,6 +67,13 @@ export const getPayoutPercentForGoalPercent = (goalPercent) => {
   return 1.6;
 };
 
+export const makeSelectRevenuePayoutPercent = () => createSelector(
+  makeSelectRevenueGoalPercentValue(),
+  (revenueGoalPercentValue) => getPayoutPercentForGoalPercent(
+    Number(revenueGoalPercentValue) / 100
+  ),
+);
+
 export const makeSelectRevenueBonus = () => createSelector(
   makeSelectSalaryValue(),
   makeSelectRevenueGoalPercentValue(),
@@ -81,6 +88,13 @@ export const makeSelectRevenueBonus = () => createSelector(
 
     return revenueBonusNumber || 0;
   }
+);
+
+export const makeSelectEbitdaPayoutPercent = () => createSelector(
+  makeSelectEbitdaGoalPercentValue(),
+  (ebitdaGoalPercentValue) => getPayoutPercentForGoalPercent(
+    Number(ebitdaGoalPercentValue) / 100
+  ),
 );
 
 export const makeSelectEbitdaBonus = () => createSelector(

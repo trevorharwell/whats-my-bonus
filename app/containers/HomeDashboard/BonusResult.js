@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,19 +10,37 @@ import FormField from 'components/FormField';
 import {
   BONUS_TAX_RATE,
   makeSelectRevenueBonus,
+  makeSelectRevenuePayoutPercent,
   makeSelectEbitdaBonus,
+  makeSelectEbitdaPayoutPercent,
   makeSelectTotalAfterTaxes,
 } from './selectors';
 
-export const BonusResult = ({ revenueBonus, ebitdaBonus, totalAfterTaxes }) => (
+export const BonusResult = ({
+  revenueBonus,
+  revenuePayoutPercent,
+  ebitdaBonus,
+  ebitdaPayoutPercent,
+  totalAfterTaxes,
+}) => (
   <div>
     <FormField>
       <label>Revenue Bonus</label>
-      <div>{numeral(revenueBonus).format('$0,0.00')}</div>
+      <div>
+        {numeral(revenueBonus).format('$0,0.00')}
+        &nbsp;&nbsp;&nbsp;
+        ({revenuePayoutPercent ? revenuePayoutPercent * 100 : 0}% payout)
+      </div>
+      <div></div>
     </FormField>
     <FormField>
       <label>EBITDA Bonus</label>
-      <div>{numeral(ebitdaBonus).format('$0,0.00')}</div>
+      <div>
+        {numeral(ebitdaBonus).format('$0,0.00')}
+        &nbsp;&nbsp;&nbsp;
+        ({ebitdaPayoutPercent ? ebitdaPayoutPercent * 100 : 0}% payout)
+      </div>
+      <div></div>
     </FormField>
     <FormField>
       <label>Total Bonus</label>
@@ -35,9 +54,19 @@ export const BonusResult = ({ revenueBonus, ebitdaBonus, totalAfterTaxes }) => (
   </div>
 );
 
+BonusResult.propTypes = {
+  revenueBonus: PropTypes.number,
+  revenuePayoutPercent: PropTypes.number,
+  ebitdaBonus: PropTypes.number,
+  ebitdaPayoutPercent: PropTypes.number,
+  totalAfterTaxes: PropTypes.number,
+};
+
 const mapStateToProps = createStructuredSelector({
   revenueBonus: makeSelectRevenueBonus(),
+  revenuePayoutPercent: makeSelectRevenuePayoutPercent(),
   ebitdaBonus: makeSelectEbitdaBonus(),
+  ebitdaPayoutPercent: makeSelectEbitdaPayoutPercent(),
   totalAfterTaxes: makeSelectTotalAfterTaxes(),
 });
 
