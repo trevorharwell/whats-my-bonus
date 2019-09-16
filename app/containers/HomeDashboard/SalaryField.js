@@ -25,7 +25,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSalaryValueChange: (e) => dispatch(changeSalaryValueAction(e.target.value))
+  onSalaryValueChange: (e) => dispatch(changeSalaryValueAction(e.target.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SalaryField);

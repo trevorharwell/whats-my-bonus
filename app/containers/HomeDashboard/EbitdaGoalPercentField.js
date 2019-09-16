@@ -25,7 +25,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onEbitdaGoalPercentValueChange: (e) => dispatch(changeEbitdaGoalPercentValueAction(e.target.value))
+  onEbitdaGoalPercentValueChange: (e) => dispatch(changeEbitdaGoalPercentValueAction(e.target.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EbitdaGoalPercentField);

@@ -16,7 +16,9 @@ const selectHomeDashboardDomain = (state) => state.get('homeDashboard', fromJS({
  * Default selector used by HomeDashboard
  */
 
-const TOTAL_BONUS_PERCENT_OF_SALARY = 0.05;
+const TOTAL_TEAM_MEMBER_BONUS_PERCENT_OF_SALARY = 0.05;
+const TOTAL_LEADER_BONUS_PERCENT_OF_SALARY = 0.1;
+const TOTAL_SENIOR_LEADER_BONUS_PERCENT_OF_SALARY = 0.15;
 const QUARTERLY_PERCENT_OF_BONUS = 0.0625;
 const ANNUAL_PERCENT_OF_BONUS = 0.25;
 export const BONUS_TAX_RATE = 0.25;
@@ -29,6 +31,11 @@ export const makeSelectHomeDashboard = () => createSelector(
 export const makeSelectSalaryValue = () => createSelector(
   selectHomeDashboardDomain,
   (substate) => substate.get('salaryValue')
+);
+
+export const makeSelectPositionType = () => createSelector(
+  selectHomeDashboardDomain,
+  (substate) => substate.get('positionType')
 );
 
 export const makeSelectRevenueGoalPercentValue = () => createSelector(
@@ -67,6 +74,19 @@ export const getPayoutPercentForGoalPercent = (goalPercent) => {
   return 1.6;
 };
 
+export const makeSelectBonusPayoutPercent = () => createSelector(
+  makeSelectPositionType(),
+  (positionType) => {
+    if (positionType === 'LEADER') {
+      return TOTAL_LEADER_BONUS_PERCENT_OF_SALARY;
+    }
+    if (positionType === 'SENIOR_LEADER') {
+      return TOTAL_SENIOR_LEADER_BONUS_PERCENT_OF_SALARY;
+    }
+    return TOTAL_TEAM_MEMBER_BONUS_PERCENT_OF_SALARY;
+  }
+);
+
 export const makeSelectRevenuePayoutPercent = () => createSelector(
   makeSelectRevenueGoalPercentValue(),
   (revenueGoalPercentValue) => getPayoutPercentForGoalPercent(
@@ -75,14 +95,15 @@ export const makeSelectRevenuePayoutPercent = () => createSelector(
 );
 
 export const makeSelectRevenueBonus = () => createSelector(
+  makeSelectBonusPayoutPercent(),
   makeSelectSalaryValue(),
   makeSelectRevenueGoalPercentValue(),
   makeSelectBonusMode(),
-  (salaryValue, revenueGoalPercentValue, bonusMode) => {
+  (bonusPayoutPercent, salaryValue, revenueGoalPercentValue, bonusMode) => {
     const salaryNumber = Number(salaryValue);
     const revenueGoalPercentNumber = Number(revenueGoalPercentValue) / 100;
     const revenueBonusNumber = getPayoutPercentForGoalPercent(revenueGoalPercentNumber)
-      * TOTAL_BONUS_PERCENT_OF_SALARY
+      * bonusPayoutPercent
       * (bonusMode === YEAR_BONUS ? ANNUAL_PERCENT_OF_BONUS : QUARTERLY_PERCENT_OF_BONUS)
       * salaryNumber;
 
@@ -98,14 +119,15 @@ export const makeSelectEbitdaPayoutPercent = () => createSelector(
 );
 
 export const makeSelectEbitdaBonus = () => createSelector(
+  makeSelectBonusPayoutPercent(),
   makeSelectSalaryValue(),
   makeSelectEbitdaGoalPercentValue(),
   makeSelectBonusMode(),
-  (salaryValue, ebitdaGoalPercentValue, bonusMode) => {
+  (bonusPayoutPercent, salaryValue, ebitdaGoalPercentValue, bonusMode) => {
     const salaryNumber = Number(salaryValue);
     const ebitdaGoalPercentNumber = Number(ebitdaGoalPercentValue) / 100;
     const ebitdaBonusNumber = getPayoutPercentForGoalPercent(ebitdaGoalPercentNumber)
-      * TOTAL_BONUS_PERCENT_OF_SALARY
+      * bonusPayoutPercent
       * (bonusMode === YEAR_BONUS ? ANNUAL_PERCENT_OF_BONUS : QUARTERLY_PERCENT_OF_BONUS)
       * salaryNumber;
 

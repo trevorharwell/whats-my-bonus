@@ -25,7 +25,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onRevenueGoalPercentValueChange: (e) => dispatch(changeRevenueGoalPercentValueAction(e.target.value))
+  onRevenueGoalPercentValueChange: (e) => dispatch(changeRevenueGoalPercentValueAction(e.target.value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RevenueGoalPercentField);

@@ -20,6 +20,7 @@ import SalaryField from './SalaryField';
 import RevenueGoalPercentField from './RevenueGoalPercentField';
 import EbitdaGoalPercentField from './EbitdaGoalPercentField';
 import BonusResult from './BonusResult';
+import PositionTypeSelect from './PositionTypeSelect';
 import makeSelectHomeDashboard from './selectors';
 import reducer from './reducer';
 import messages from './messages';
@@ -35,6 +36,7 @@ export function HomeDashboard() {
         <FormattedMessage {...messages.header} />
       </RetroHeader>
       <BonusTypeTab />
+      <PositionTypeSelect />
       <SalaryField />
       <RevenueGoalPercentField />
       <EbitdaGoalPercentField />

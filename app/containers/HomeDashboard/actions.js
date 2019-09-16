@@ -10,6 +10,7 @@ import {
   CHANGE_EBITDA_GOAL_PERCENT_VALUE_ACTION,
   SELECT_QUARTER_BONUS_MODE_ACTION,
   SELECT_YEAR_BONUS_MODE_ACTION,
+  SET_POSITION_TYPE_VALUE,
 } from './constants';
 
 export const changeSalaryValueAction = (value) => ({
@@ -33,4 +34,9 @@ export const selectQuarterBonusModeAction = () => ({
 
 export const selectYearBonusModeAction = () => ({
   type: SELECT_YEAR_BONUS_MODE_ACTION,
+});
+
+export const setPositionTypeValue = (value) => ({
+  type: SET_POSITION_TYPE_VALUE,
+  value,
 });
